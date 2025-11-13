@@ -46,10 +46,13 @@
 #' \dontrun{
 #' data("leuk_data")
 #' }
+
+#### TODO: fix documentation to include the time grid
 coxnph_bart <- function(formula,
                         data,
                         pop_haz = NULL,
                         test_data = NULL,
+                        time_grid = NULL,
                         num_tree = 50,
                         k = 1,
                         num_burn = 2500,
@@ -80,7 +83,7 @@ coxnph_bart <- function(formula,
   scale_lambda <- 1 / sqrt(num_tree) / k
 
   ## Preprocess Data
-  ab <- auto_bin(Y_train)
+  ab <- auto_bin(Y_train, time_grid)
   bin_to_obs_list <- ab$bin_to_obs
   obs_to_bin      <- ab$obs_to_bin
   time_grid       <- ab$time_grid
